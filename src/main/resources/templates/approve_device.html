@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <head>
+        <link async rel="stylesheet" th:href="@{/css/ksdna.css}">
+    </head>
+</head>
+<body>
+<div class="main" style="width: 600px;">
+    <img alt="Keystroke DNA" style="margin-bottom: 20px; max-width: 340px; " th:src="@{/images/ksdna_logo.svg}">
+    <br>
+    <div class="message"> Congratulations, you have successfully logged in! <br>
+        We also noticed other login attempts on your account. To maintain security, please review the activity
+        below
+        and confirm (or reject) if this was you!
+    </div>
+    <br>
+    <form id="ksdnaForm" method="post" th:action="@{/approve_device/}">
+        <div class="-with-bottom-padding-20" th:each="e: ${forApproving}">
+            <div class="full-width-flex -with-bottom-border -with-bottom-padding-20 -with-top-padding-20">
+                <div class="fixed-width-150">
+                    <div><b th:text="${#dates.format(e.value.date, 'dd-MM-yyyy HH:mm')}"></b></div>
+                    <div th:text="${e.value.getTitle()}"></div>
+                </div>
+                <div class="fixed-width-150">
+                    <div><b th:text="${e.value.getIpAddress()}"></b></div>
+                    <div th:text="${e.value.country + ', ' + e.value.region + ', ' + e.value.city}"></div>
+                </div>
+                <div class="fixed-width-150 full-width-flex">
+                    <div>
+                        <input th:id="${e.key + '-on'}" th:name="${'keys_'+ e.key}" type="radio" value="1">
+                        <label class="button-link-accept" th:for="${e.key + '-on'}">Confirm</label>
+                    </div>
+                    <div>
+                        <input th:id="${e.key + '-off'}" th:name="${'keys_'+ e.key}" type="radio" value="0">
+                        <label class="button-link-decline" th:for="${e.key + '-off'}">Reject</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="hoverable-button-default form-button">Submit</button>
+        </div>
+    </form>
+</div>
+
+</body>
+
+</html>

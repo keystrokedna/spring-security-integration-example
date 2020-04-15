@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: false
+      timeout: 15m
+      tracking-modes: COOKIE
+
+logging:
+  level:
+    root: INFO
+
+spring:
+  application:
+    name: Keystroke DNA Integration
+  thymeleaf:
+    cache: false
+
+ksdna:
+  secret: ''
+  key: ''

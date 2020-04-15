@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <head>
+        <link async rel="stylesheet" th:href="@{/css/ksdna.css}">
+    </head>
+</head>
+<title>Invalid Verification Code</title>
+<body>
+<div class="main">
+    <img alt="Keystroke DNA" style="margin-bottom: 20px; max-width: 340px; " th:src="@{/images/ksdna_logo.svg}">
+    <br>
+    <div class="message">Invalid Verification Code
+    </div>
+    <form id="ksdnaForm" method="get" th:action="@{/2fa/}">
+        <button class="hoverable-button-default form-button" th:href="@{/login}">Try again</button>
+    </form>
+    <br>
+</div>
+</body>
+</html>

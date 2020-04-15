@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <head>
+        <link async rel="stylesheet" th:href="@{/css/ksdna.css}">
+    </head>
+</head>
+<title>Google Authenticator Verification Code</title>
+<body>
+<div class="main">
+    <img alt="Keystroke DNA" style="margin-bottom: 20px; max-width: 340px; " th:src="@{/images/ksdna_logo.svg}">
+    <br>
+    <div class="message">Google Authenticator Verification Code
+    </div>
+    <br><br>
+    <div class="message">To connect this application with your Google Authenticator <a target="_blank"
+                                                                                       th:href="@{/2fa_qr_code/}">click
+        here</a>
+    </div>
+    <form id="ksdnaForm" method="post" th:action="@{/2fa_code/}">
+
+        <div><input class="ksdna-input" id="code" name="code" placeholder="Code" required="" type="text"></div>
+        <div>
+            <button class="hoverable-button-default form-button">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="ie=edge" http-equiv="x-ua-compatible">
+    <head>
+        <link async rel="stylesheet" th:href="@{/css/ksdna.css}">
+    </head>
+</head>
+<body>
+<div class="main">
+    <img alt="Keystroke DNA" style="margin-bottom: 20px; max-width: 340px; " th:src="@{/images/ksdna_logo.svg}">
+    <br>
+    <div class="message">We turned off auto-fill suggestions so Keystroke DNA can analyze how you type.
+    </div>
+    <br>
+    <div class="message">Please always type like you’re writing an email to a friend – in your own relaxed and
+        consistent manner.
+    </div>
+    <div class="message-error" th:if="${loginError}">Keep calm and try typing again please, we didn’t quite recognize
+        you this time.
+    </div>
+    <form id="ksdnaForm" method="post" th:action="@{/login}">
+        <div><input class="ksdna-input" id="username" ksdna="ksdna" name="username" placeholder="Username" required=""
+                    type="text"></div>
+        <div><input class="ksdna-input" id="password" name="password" placeholder="Password" required=""
+                    type="password"></div>
+        <div>
+            <button class="hoverable-button-default form-button">
+                Sign In
+            </button>
+        </div>
+    </form>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    const KSDNA_SDK_URL = "https://api.keystrokedna.com/static/v0.4.1/ksdna.js?apiKey=" + [[${ksdna.key}]];
+    /*]]>*/
+    !function (a, b, c, d) {
+        a.KSDNA = a.KSDNA || {
+            f: [], ready: function (b) {
+                a.KSDNA.loaded ? b() : this.f.push(b)
+            }
+        };
+        var e = b.createElement(c), f = b.getElementsByTagName(c)[0];
+        e.ksdna = 1, e.async = 1, e.src = d, f.parentNode.insertBefore(e, f)
+    }(window, document, "script", KSDNA_SDK_URL);
+    window.KSDNA.ready(function () {
+        window.KSDNA.init();
+    });
+    document.getElementById('ksdnaForm').addEventListener('submit', function (e) {
+        let f = e.target;
+        let usernameInput = f.querySelector('#username');
+        let sig = KSDNA.prepareSignature('username', usernameInput.ksdna._dataset);
+
+        let i = document.createElement('input');
+        i.setAttribute('name', "signature");
+        i.setAttribute('value', sig);
+        i.setAttribute('type', "hidden")
+        f.appendChild(i);
+        f.submit();
+        return true;
+    });
+</script>
+</body>
+</html>
